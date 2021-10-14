@@ -1,2 +1,2 @@
 # loading-demi
-vue(2,3) loading directive.
+vue loading directive.
