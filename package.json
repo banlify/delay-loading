@@ -1,6 +1,6 @@
 {
   "name": "delay-loading",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Vue2.x and Vue3.x loading directive.",
   "main": "index.js",
   "repository": {
@@ -12,6 +12,9 @@
     "loading",
     "directive",
     "vue3"
+  ],
+  "file": [
+    "dist"
   ],
   "author": "banlify <banlify@163.com>",
   "license": "MIT",

@@ -1,5 +1,6 @@
+import './index.css';
+import { Vue2, Vue3 } from './types';
 import { isVue2, isVue3 } from 'vue-demi';
-import { LoadingVue2, LoadingVue3 } from './types';
 import {
   created,
   beforeMount,
@@ -10,14 +11,27 @@ import {
   unmounted
 } from './core'
 
-let directive: LoadingVue2 | LoadingVue3 = { name: 'loading' };
 
-(() => {
-  if (isVue2) {
-    Object.assign(directive, {});
-  } else if (isVue3) {
-    Object.assign(directive, {});
+let directive
+
+if (isVue2) {
+  directive = {
+    bind: beforeMount,
+    inserted: mounted,
+    beforeUpdate,
+    componentUpdated: updated,
+    unbind: unmounted
   }
-})();
+} else {
+  directive = {
+    created,
+    beforeMount,
+    mounted,
+    beforeUpdate,
+    updated,
+    beforeUnmount,
+    unmounted
+  }
+}
 
 export default directive;
