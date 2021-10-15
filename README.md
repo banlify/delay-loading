@@ -1,2 +1,2 @@
-# loading-demi
+# delay-loading
 vue loading directive.

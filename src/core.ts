@@ -38,7 +38,7 @@ const insertAdjacentHTML = (element: HTMLElement, { arg, modifiers }: DirectiveB
       )
     }
 
-    element.classList.add(CONTAINER_CLASSES, modifiers.fullscreen ? 'delay-loading-fixed' : '')
+    // element.classList.add(CONTAINER_CLASSES, modifiers.fullscreen ? 'delay-loading-fixed' : '')
     element.insertAdjacentHTML('afterbegin', template)
   }, +arg || 300)
 }
