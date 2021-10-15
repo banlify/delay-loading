@@ -1,4 +1,9 @@
-import { DirectiveBinding } from 'vue'
+interface DirectiveBinding {
+  arg?: string;
+  value: boolean;
+  oldValue: boolean | null;
+  modifiers: Record<string, boolean>;
+}
 
 import {
   CONTAINER_CLASSES,
@@ -27,23 +32,27 @@ const toggleWrapperState = (element: HTMLElement, { modifiers }: DirectiveBindin
 }
 
 const insertAdjacentHTML = (element: HTMLElement, { arg, modifiers }: DirectiveBinding) => {
-  setTimeout(() => {
-    let template = LOADING_TEMPLATE
-    const LOADING_TEXT = element.dataset.loadingText
-
-    if (LOADING_TEXT && LOADING_TEXT.trim()) {
-      template = template.replace(
-        LOADING_TEXT_FLAG,
-        RENDER_LOADING_TEXT(LOADING_TEXT)
-      )
-    }
-
-    // element.classList.add(CONTAINER_CLASSES, modifiers.fullscreen ? 'delay-loading-fixed' : '')
-    element.insertAdjacentHTML('afterbegin', template)
-  }, +arg || 300)
+  setTimeout(renderTemplate, +arg || 300, element, modifiers)
 }
 
-export function created() { }
+const renderTemplate = (element: HTMLElement, modifiers: Record<string, boolean>) => {
+  let template = LOADING_TEMPLATE
+  const LOADING_TEXT = element.dataset.loadingText
+
+  if (LOADING_TEXT && LOADING_TEXT.trim()) {
+    template = template.replace(
+      LOADING_TEXT_FLAG,
+      RENDER_LOADING_TEXT(LOADING_TEXT)
+    )
+  }
+
+  template = template.replace(
+    LOADING_ICON_FLAG,
+    modifiers.inline ? INLINE_LOADING_ICON : SECTION_LOADING_ICON
+  )
+
+  element.insertAdjacentHTML('afterbegin', template)
+}
 
 export function beforeMount(el, binding) {
   el.instance = {
@@ -53,6 +62,7 @@ export function beforeMount(el, binding) {
 
 export function mounted(el, binding, vnode) {
   if (!!binding.value) {
+    el.classList.add(CONTAINER_CLASSES, CONTAINER_OVERFLOW)
     insertAdjacentHTML(el, binding)
     el.instance.initialized = true
   }
@@ -60,16 +70,22 @@ export function mounted(el, binding, vnode) {
 
 export function beforeUpdate(el, binding, vnode) {
   el.classList.toggle(CONTAINER_CLASSES)
-  if (binding.value && !el.instance.initialized) {
-    insertAdjacentHTML(el, binding)
-  }
 
+  if (binding.value) {
+    if (!el.instance.initialized) {
+      insertAdjacentHTML(el, binding)
+    }
+
+    el.classList.add(CONTAINER_OVERFLOW)
+  } else {
+    el.classList.remove(CONTAINER_OVERFLOW)
+  }
 }
 
 export function updated(el, binding, vnode) { }
 
-export function beforeUnmount(el) {
+export function beforeUnmount(el) { }
+
+export function unmounted(el) {
   el.classList.remove(CONTAINER_CLASSES)
 }
-
-export function unmounted(el) { }

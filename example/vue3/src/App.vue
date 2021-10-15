@@ -1,5 +1,5 @@
 <template>
-  <div v-if="display" class="wrapper" v-delay-loading:500.inline="loading">
+  <div v-if="display" class="wrapper" v-delay-loading="loading">
     <HelloWorld msg="You did it!" />
   </div>
 
@@ -7,10 +7,13 @@
 </template>
 
 <script>
-import DelayLoading from '../../../index'
+import Loading from '../../../dist/index'
+import '../../../dist/index.css'
 
 export default {
-  directives: { DelayLoading }
+  directives: {
+    DelayLoading: Loading
+  }
 }
 </script>
 
@@ -18,7 +21,7 @@ export default {
 import HelloWorld from './components/HelloWorld.vue'
 import { ref, onMounted } from 'vue'
 
-const loading = ref(false)
+const loading = ref(true)
 const display = ref(true)
 
 const toggle = () => {

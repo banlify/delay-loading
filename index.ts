@@ -1,13 +1,3 @@
-import { App } from 'vue'
-
-import directive from './src/directive'
-
-directive.name = 'delay-loading'
-
-export default {
-  ...directive,
-  install(app: App): App {
-    app.directive(directive.name, directive)
-    return app
-  }
-}
+import './src/index.css';
+export { default as Vue2 } from './src/vue2'
+export { default as default } from './src/vue3'

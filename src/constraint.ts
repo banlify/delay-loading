@@ -1,3 +1,5 @@
+export const PLUGIN_NAME = 'delay-loading'
+
 export const CONTAINER_CLASSES = 'delay-loading-container'
 export const CONTAINER_OVERFLOW = 'delay-loading-overflow'
 export const FULLSCREEN_DISPLAY = 'delay-loading-fixed'
