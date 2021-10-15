@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" v-delay-loading:500="loading">
+  <div v-if="display" class="wrapper" v-delay-loading:500.inline="loading">
     <HelloWorld msg="You did it!" />
   </div>
 
@@ -18,10 +18,15 @@ export default {
 import HelloWorld from './components/HelloWorld.vue'
 import { ref, onMounted } from 'vue'
 
-const loading = ref(true)
+const loading = ref(false)
+const display = ref(true)
 
 const toggle = () => {
   loading.value = !loading.value
+
+  // setTimeout(() => {
+  //   display.value = !display.value
+  // }, 1000)
 }
 </script>
 

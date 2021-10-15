@@ -1,53 +1,69 @@
-import { DirectiveBinding, VNode } from 'vue'
+import { DirectiveBinding } from 'vue'
 
-const CONTAINER_CLASSES = 'delay-loading-container'
+import {
+  CONTAINER_CLASSES,
+  CONTAINER_OVERFLOW,
+  FULLSCREEN_DISPLAY,
 
-const LOADING_TEMPLATE = `
-<div class="delay-loading-cover">
-  <div class="delay-loading-spinner">
-    <!--<svg viewBox="25 25 50 50" class="circular">
-      <circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
-    </svg>-->
-    <i class="inline-loading-icon"></i>
-    <!-- loading-text -->
-  </div>
-</div>
-`
+  LOADING_ICON_FLAG,
+  LOADING_TEXT_FLAG,
 
-const INLINE_LOADING_ICON = `<i class="inline-loading-icon"></i>`
+  LOADING_TEMPLATE,
+  RENDER_LOADING_TEXT,
+  INLINE_LOADING_ICON,
+  SECTION_LOADING_ICON,
+} from './constraint'
 
-const insertAdjacentHTML = (element: HTMLElement, { arg }: DirectiveBinding) => {
+const toggleWrapperState = (element: HTMLElement, { modifiers }: DirectiveBinding) => {
+  const classes = element.classList
+
+  if (!classes.contains(CONTAINER_CLASSES)) {
+    classes.add(CONTAINER_CLASSES)
+  }
+
+  if (modifiers.fullscreen) {
+    classes.add(FULLSCREEN_DISPLAY)
+  }
+}
+
+const insertAdjacentHTML = (element: HTMLElement, { arg, modifiers }: DirectiveBinding) => {
   setTimeout(() => {
     let template = LOADING_TEMPLATE
     const LOADING_TEXT = element.dataset.loadingText
 
     if (LOADING_TEXT && LOADING_TEXT.trim()) {
       template = template.replace(
-        '<!-- loading-text -->',
-        `<p class="delay-loading-text">${LOADING_TEXT}</p>`
+        LOADING_TEXT_FLAG,
+        RENDER_LOADING_TEXT(LOADING_TEXT)
       )
     }
 
-    element.classList.add(CONTAINER_CLASSES)
+    element.classList.add(CONTAINER_CLASSES, modifiers.fullscreen ? 'delay-loading-fixed' : '')
     element.insertAdjacentHTML('afterbegin', template)
-  }, +arg || 0)
+  }, +arg || 300)
 }
 
 export function created() { }
 
-export function beforeMount() { }
+export function beforeMount(el, binding) {
+  el.instance = {
+    initialized: false
+  }
+}
 
 export function mounted(el, binding, vnode) {
   if (!!binding.value) {
     insertAdjacentHTML(el, binding)
-    el.instance = {
-      initialized: true
-    }
+    el.instance.initialized = true
   }
 }
 
 export function beforeUpdate(el, binding, vnode) {
   el.classList.toggle(CONTAINER_CLASSES)
+  if (binding.value && !el.instance.initialized) {
+    insertAdjacentHTML(el, binding)
+  }
+
 }
 
 export function updated(el, binding, vnode) { }
@@ -56,4 +72,4 @@ export function beforeUnmount(el) {
   el.classList.remove(CONTAINER_CLASSES)
 }
 
-export function unmounted() { }
+export function unmounted(el) { }

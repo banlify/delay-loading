@@ -2,6 +2,10 @@
   --loading-primary-color: #00dc9e;
 }
 
+.delay-loading-overflow {
+  overflow: hidden!important;
+}
+
 .delay-loading-container {
   position: relative!important;
   pointer-events: none!important;
@@ -18,8 +22,12 @@
   right: 0;
   bottom: 0;
   animation: cover-fade 500ms ease;
-  background-color: rgba(255, 255, 255, .8);
+  background-color: rgba(0, 0, 0, .8);
   z-index: 10;
+}
+
+.delay-loading-fixed .delay-loading-cover{
+  position: fixed
 }
 
 .delay-loading-container .delay-loading-cover {
@@ -58,7 +66,6 @@
   stroke-linecap: round;
 }
 
-
 .delay-loading-cover .inline-loading-icon {
   display: inline-block;
   position: relative;
@@ -90,19 +97,6 @@
 .delay-loading-cover .inline-loading-icon::after {
   opacity: 0;
   animation-delay: 1s;
-}
-
-.inline-loading-icon::after,
-.inline-loading-icon::before {
-  content: "";
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  border: 2px solid var(--loading-primary-color);
-  position: absolute;
-  left: 0;
-  top: 0;
-  animation: inline-loading-icon 2s linear infinite;
 }
 
 @keyframes cover-fade {
