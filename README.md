@@ -8,10 +8,10 @@
 
 - [x] Support setting loading prompt text
 - [x] Supports full-screen display loading
+- [x] Support vue2
 - [ ] Support for setting colors
 - [ ] Support button internal loading
 - [ ] Supports custom loading effects
-- [ ] Support vue2
 
 ## Install
 
@@ -67,4 +67,16 @@ export default {
   }
 }
 </script>
+```
+
+### Loading text
+
+Set the `data-loading-text` property to display the custom loading text.
+
+```html
+<template>
+  <div v-delay-loading="loading" data-loading-text="数据加载中...">
+
+  </div>
+</template>
 ```

@@ -3,7 +3,7 @@ import { DIRECTIVE_NAME as name } from './constraint'
 import {
   beforeMount as bind,
   mounted as inserted,
-  beforeUpdate,
+  beforeUpdate as componentUpdated,
   unmounted as unbind
 } from './core'
 
@@ -11,7 +11,7 @@ const directive = {
   name,
   bind,
   inserted,
-  beforeUpdate,
+  componentUpdated,
   unbind
 }
 
