@@ -1,6 +1,5 @@
+import { DIRECTIVE_NAME as name } from './constraint'
 
-import './index.css';
-import { PLUGIN_NAME as name } from './constraint'
 import {
   beforeMount,
   mounted,

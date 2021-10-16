@@ -1,4 +1,4 @@
-import { PLUGIN_NAME as name } from './constraint'
+import { DIRECTIVE_NAME as name } from './constraint'
 
 import {
   beforeMount,

@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import Loading from '../../../dist/index'
-import '../../../dist/index.css'
+import Loading from '../../../dist'
+// import '../../../dist/index.css'
 
 export default {
   directives: {

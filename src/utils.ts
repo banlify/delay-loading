@@ -1,7 +1,18 @@
-function styleInject(style: string) {
-  if (!style.trim() || typeof document === 'undefined') { return; }
-  const head = document.head || document.getElementsByTagName('head')[0];
+import { CLASSES_PREFIX } from './constraint'
 
-  // "beforebegin" | "afterbegin" | "beforeend" | "afterend"
-  head.insertAdjacentHTML('afterend', style);
-}
+import { create } from 'nano-css'
+import { addon as addonRule } from 'nano-css/addon/rule'
+// import { addon as addonCache } from 'nano-css/addon/cache'
+// import { addon as addonDRule } from 'nano-css/addon/drule'
+import { addon as keyframe } from 'nano-css/addon/keyframes'
+
+import type { NanoRenderer } from 'nano-css'
+
+const nano = create({ pfx: CLASSES_PREFIX + '-' })
+
+keyframe(nano)
+addonRule(nano)
+// addonCache(nano)
+// addonDRule(nano)
+
+export var style: NanoRenderer = nano

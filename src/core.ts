@@ -16,7 +16,7 @@ import {
   LOADING_TEMPLATE,
   RENDER_LOADING_TEXT,
   INLINE_LOADING_ICON,
-  SECTION_LOADING_ICON,
+  LOADING_ICON_SECTION,
 } from './constraint'
 
 const toggleWrapperState = (element: HTMLElement, { modifiers }: DirectiveBinding) => {
@@ -48,7 +48,7 @@ const renderTemplate = (element: HTMLElement, modifiers: Record<string, boolean>
 
   template = template.replace(
     LOADING_ICON_FLAG,
-    modifiers.inline ? INLINE_LOADING_ICON : SECTION_LOADING_ICON
+    modifiers.inline ? INLINE_LOADING_ICON : LOADING_ICON_SECTION
   )
 
   element.insertAdjacentHTML('afterbegin', template)
