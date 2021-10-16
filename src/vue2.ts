@@ -1,20 +1,18 @@
 import { DIRECTIVE_NAME as name } from './constraint'
 
 import {
-  beforeMount,
-  mounted,
+  beforeMount as bind,
+  mounted as inserted,
   beforeUpdate,
-  updated,
-  unmounted
+  unmounted as unbind
 } from './core'
 
 const directive = {
   name,
-  bind: beforeMount,
-  inserted: mounted,
+  bind,
+  inserted,
   beforeUpdate,
-  componentUpdated: updated,
-  unbind: unmounted
+  unbind
 }
 
 export default {

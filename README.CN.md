@@ -1,10 +1,11 @@
-# delay-loading
+# delay-loading 延迟加载
 
-[中文文档](/README.CN.md)
+[English Doc](/README.md)
 
-&ensp;&ensp;Well... I think in most cases your internet speed is unstable, fast and slow. When operating the app, you think of giving the user feedback on loading the animation. But loading the animation may flash when the network is fast, which makes your application suddenly white, but when the loading effect is not set, if the network is slow, it will make users feel that the website or their network is wrong. To solve the problem, it was available.
+&emsp;&emsp;嗯……我想，在大多数情况下你的网速都是不稳定的，时快时慢。在操作应用的时候，你会想到给用户一个加载动画的反馈。但在网络速度较快的时候加载动画可能会一闪而过，这会导致你的应用程序突然白屏，但不设置加载效果的时候，如果网络情况较慢的时候，会使得用户觉得网站或者自己的网络出问题了。为了解决这个问题，于是有了它。
 
-## Features
+
+## 功能
 
 - [x] Support setting loading prompt text
 - [x] Supports full-screen display loading
@@ -13,14 +14,13 @@
 - [ ] Supports custom loading effects
 - [ ] Support vue2
 
-## Install
 
+## 安装
 ```sh
 npm i delay-loading --save-dev
 ```
 
-### Global directive
-
+### 全局指令
 Vue 2
 ```js
 import Vue from 'vue';
@@ -40,8 +40,10 @@ const app = createApp(App)
 app.use(DelayLoading)
 ```
 
-### Scope directive
+### 局部指令
+
 ```js
+
 import { DelayLoading } from 'delay-loading' // vue2
 import DelayLoading from 'delay-loading' // vue3
 
@@ -52,7 +54,7 @@ export default {
 }
 ```
 
-## Usage
+## 使用
 ```html
 <template>
   <div v-delay-loading="loading"></div>

@@ -4,8 +4,6 @@ import {
   beforeMount,
   mounted,
   beforeUpdate,
-  updated,
-  beforeUnmount,
   unmounted
 } from './core'
 
@@ -14,8 +12,6 @@ const directive = {
   beforeMount,
   mounted,
   beforeUpdate,
-  updated,
-  beforeUnmount,
   unmounted
 }
 

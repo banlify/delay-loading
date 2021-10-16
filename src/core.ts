@@ -6,6 +6,8 @@ interface DirectiveBinding {
 }
 
 import {
+  DEFAULT_DELAY,
+
   CONTAINER_CLASSES,
   CONTAINER_OVERFLOW,
   FULLSCREEN_DISPLAY,
@@ -19,20 +21,21 @@ import {
   LOADING_ICON_SECTION,
 } from './constraint'
 
-const toggleWrapperState = (element: HTMLElement, { modifiers }: DirectiveBinding) => {
-  const classes = element.classList
+// const toggleWrapperState = (element: HTMLElement, { modifiers }: DirectiveBinding) => {
+//   const classes = element.classList
 
-  if (!classes.contains(CONTAINER_CLASSES)) {
-    classes.add(CONTAINER_CLASSES)
-  }
+//   if (!classes.contains(CONTAINER_CLASSES)) {
+//     classes.add(CONTAINER_CLASSES)
+//   }
 
-  if (modifiers.fullscreen) {
-    classes.add(FULLSCREEN_DISPLAY)
-  }
-}
+//   if (modifiers.fullscreen) {
+//     classes.add(FULLSCREEN_DISPLAY)
+//   }
+// }
 
 const insertAdjacentHTML = (element: HTMLElement, { arg, modifiers }: DirectiveBinding) => {
-  setTimeout(renderTemplate, +arg || 300, element, modifiers)
+  const delay = +arg !== 0 ? +arg : DEFAULT_DELAY
+  setTimeout(renderTemplate, delay, element, modifiers)
 }
 
 const renderTemplate = (element: HTMLElement, modifiers: Record<string, boolean>) => {
@@ -54,13 +57,14 @@ const renderTemplate = (element: HTMLElement, modifiers: Record<string, boolean>
   element.insertAdjacentHTML('afterbegin', template)
 }
 
-export function beforeMount(el, binding) {
+export function beforeMount(el) {
+  console.log(el.tagName)
   el.instance = {
     initialized: false
   }
 }
 
-export function mounted(el, binding, vnode) {
+export function mounted(el, binding) {
   if (!!binding.value) {
     el.classList.add(CONTAINER_CLASSES, CONTAINER_OVERFLOW)
     insertAdjacentHTML(el, binding)
@@ -68,7 +72,7 @@ export function mounted(el, binding, vnode) {
   }
 }
 
-export function beforeUpdate(el, binding, vnode) {
+export function beforeUpdate(el, binding) {
   el.classList.toggle(CONTAINER_CLASSES)
 
   if (binding.value) {
@@ -81,10 +85,6 @@ export function beforeUpdate(el, binding, vnode) {
     el.classList.remove(CONTAINER_OVERFLOW)
   }
 }
-
-export function updated(el, binding, vnode) { }
-
-export function beforeUnmount(el) { }
 
 export function unmounted(el) {
   el.classList.remove(CONTAINER_CLASSES)

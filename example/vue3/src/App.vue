@@ -7,8 +7,7 @@
 </template>
 
 <script>
-import Loading from '../../../dist'
-// import '../../../dist/index.css'
+import Loading, { DelayLoading } from '../../../index'
 
 export default {
   directives: {

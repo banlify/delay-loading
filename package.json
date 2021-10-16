@@ -2,12 +2,11 @@
   "name": "delay-loading",
   "version": "0.0.1",
   "description": "Vue2.x and Vue3.x delay loading directive.",
+  "main": "dist/index.min.js",
   "type": "module",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "browser": "dist/index.global.js",
   "scripts": {
-    "build": "rimraf dist && tsup index.ts --format esm,cjs"
+    "uglify": "uglifyjs -c -m --mangle-props -o dist/index.min.js -- dist/index.js",
+    "build": "rimraf dist && tsup index.ts --format esm && npm run uglify"
   },
   "repository": {
     "type": "git",
