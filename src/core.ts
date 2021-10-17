@@ -6,7 +6,9 @@ interface DirectiveBinding {
 }
 
 import {
-  DEFAULT_DELAY,
+  DEFAULT_CONFIG,
+  IGNORE_ELEMENT,
+  DIRECTIVE_NAME,
 
   CONTAINER_CLASSES,
   CONTAINER_OVERFLOW,
@@ -21,27 +23,26 @@ import {
   LOADING_ICON_SECTION,
 } from './constraint'
 
-// const toggleWrapperState = (element: HTMLElement, { modifiers }: DirectiveBinding) => {
-//   const classes = element.classList
+const setStatus = (element: HTMLElement, { fullscreen, inline }: Record<string, boolean>) => {
+  const classes = element.classList
 
-//   if (!classes.contains(CONTAINER_CLASSES)) {
-//     classes.add(CONTAINER_CLASSES)
-//   }
+  classes.toggle(CONTAINER_CLASSES)
+  classes.toggle(CONTAINER_OVERFLOW)
 
-//   if (modifiers.fullscreen) {
-//     classes.add(FULLSCREEN_DISPLAY)
-//   }
-// }
-
-const insertAdjacentHTML = (element: HTMLElement, { arg, modifiers }: DirectiveBinding) => {
-  const delay = +arg !== 0 ? +arg : DEFAULT_DELAY
-  setTimeout(renderTemplate, delay, element, modifiers)
+  if (fullscreen) {
+    classes.add(FULLSCREEN_DISPLAY)
+  } else if (inline) {
+    // classes.add()
+  }
 }
 
 const renderTemplate = (element: HTMLElement, modifiers: Record<string, boolean>) => {
+  setStatus(element, modifiers)
+
   let template = LOADING_TEMPLATE
   const LOADING_TEXT = element.dataset.loadingText
 
+  // If loading text not empty create loading text.
   if (LOADING_TEXT && LOADING_TEXT.trim()) {
     template = template.replace(
       LOADING_TEXT_FLAG,
@@ -49,6 +50,7 @@ const renderTemplate = (element: HTMLElement, modifiers: Record<string, boolean>
     )
   }
 
+  // Sets the loading animation as the target effect.
   template = template.replace(
     LOADING_ICON_FLAG,
     modifiers.inline ? INLINE_LOADING_ICON : LOADING_ICON_SECTION
@@ -57,33 +59,38 @@ const renderTemplate = (element: HTMLElement, modifiers: Record<string, boolean>
   element.insertAdjacentHTML('afterbegin', template)
 }
 
+const insertAdjacentHTML = (element: HTMLElement, { arg, modifiers }: DirectiveBinding) => {
+  // @ts-ignore
+  if (element.instance && element.instance.ignore) {
+    console.warn(`[${DIRECTIVE_NAME}]: Directive cannot be applied to the current element. current element: <${element.tagName.toLowerCase()}>`)
+    return
+  }
+
+  const delay = +arg !== 0 ? +arg : DEFAULT_CONFIG.delay
+  setTimeout(renderTemplate, delay, element, modifiers)
+}
+
 export function beforeMount(el) {
-  console.log(el.tagName)
   el.instance = {
-    initialized: false
+    initialized: false,
+    ignore: IGNORE_ELEMENT.includes(el.tagName)
   }
 }
 
 export function mounted(el, binding) {
   if (!!binding.value) {
-    el.classList.add(CONTAINER_CLASSES, CONTAINER_OVERFLOW)
     insertAdjacentHTML(el, binding)
     el.instance.initialized = true
   }
 }
 
 export function beforeUpdate(el, binding) {
-  el.classList.toggle(CONTAINER_CLASSES)
-
-  if (binding.value) {
-    if (!el.instance.initialized) {
-      insertAdjacentHTML(el, binding)
-    }
-
-    el.classList.add(CONTAINER_OVERFLOW)
-  } else {
-    el.classList.remove(CONTAINER_OVERFLOW)
+  if (!el.instance.initialized) {
+    insertAdjacentHTML(el, binding)
+    return
   }
+
+  setStatus(el, binding.modifiers)
 }
 
 export function unmounted(el) {

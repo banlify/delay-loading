@@ -1,4 +1,4 @@
-import { prefix, CIRCULAR_SIZE } from './constraint'
+import { prefix, DEFAULT_CONFIG } from './constraint'
 import { style } from './utils'
 
 const coverFade = style.keyframes!({
@@ -55,7 +55,7 @@ const stylesheet: Record<string, Record<string, any>> = {
     height: '100%',
     animation: `${coverFade} 1s ease`,
     backgroundColor: 'rgba(255, 255, 255, .8)',
-    zIndex: 100
+    zIndex: DEFAULT_CONFIG.zIndex
   },
   spinner: {
     position: 'absolute',
@@ -73,8 +73,8 @@ const stylesheet: Record<string, Record<string, any>> = {
   },
   circular: {
     margin: '0 auto',
-    width: CIRCULAR_SIZE + 'px',
-    height: CIRCULAR_SIZE + 'px',
+    width: '20%',
+    height: '20%',
     animation: `${loadingRotate} 2s linear infinite`
   },
   path: {

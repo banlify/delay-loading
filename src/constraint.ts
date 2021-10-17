@@ -1,5 +1,9 @@
-export const CIRCULAR_SIZE = 48
-export const DEFAULT_DELAY = 300
+export const DEFAULT_CONFIG = {
+  delay: 300,
+  zIndex: 10,
+}
+
+export const IGNORE_ELEMENT = ['IMG', 'LINK', 'SCRIPT', 'IFRAME', 'PATH', 'HEAD', 'HTML', 'META', 'BASE', 'SVG']
 
 export const DIRECTIVE_NAME = 'delay-loading'
 export const CLASSES_PREFIX = 'delay-loading'

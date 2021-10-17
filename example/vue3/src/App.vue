@@ -3,11 +3,15 @@
     <HelloWorld msg="You did it!" />
   </div>
 
+  <img src="./assets/logo.svg" v-delay-loading="loading"  alt="">
+
+  <button style="margin: 30px" v-delay-loading.inline="loading">按钮内加载</button>
+
   <button @click="toggle">切换</button>
 </template>
 
 <script>
-import Loading from '../../../dist'
+import Loading from '../../../index'
 
 export default {
   directives: {
@@ -20,7 +24,7 @@ export default {
 import HelloWorld from './components/HelloWorld.vue'
 import { ref, onMounted } from 'vue'
 
-const loading = ref(true)
+const loading = ref(false)
 const display = ref(true)
 
 const toggle = () => {
