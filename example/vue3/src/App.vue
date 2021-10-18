@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" v-delay-loading="loading" data-loading-color="#000" data-loading-background="#f00" data-loading-text="12312">
+  <div class="wrapper" v-delay-loading:300="loading" data-loading-color="#000" data-loading-background="#f00" data-loading-text="12312">
     <HelloWorld msg="You did it!" />
   </div>
 
@@ -8,15 +8,6 @@
   <button @click="toggle">切换</button>
 </template>
 
-<script>
-import Loading from '../../../index'
-
-export default {
-  directives: {
-    DelayLoading: Loading
-  }
-}
-</script>
 
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'

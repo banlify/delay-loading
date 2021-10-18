@@ -69,8 +69,7 @@ const stylesheet: Record<string, Record<string, any>> = {
   },
   text: {
     margin: '3px 0',
-    fontSize: 'inherit',
-    // color: 'var(--loading-color)'
+    fontSize: 'inherit'
   },
   circular: {
     margin: '0 auto',
@@ -83,7 +82,6 @@ const stylesheet: Record<string, Record<string, any>> = {
     strokeDasharray: '90, 150',
     strokeDashoffset: 0,
     strokeWidth: 3,
-    // stroke: 'var(--loading-color)',
     strokeLinecap: 'round'
   },
   scope: {
@@ -96,8 +94,6 @@ const stylesheet: Record<string, Record<string, any>> = {
     animation: `${delayLoadingInline} .3s ease-in-out`
   }
 }
-
-style.put(':root', { '--loading-color': '#00dc9e' })
 
 for (const classes in stylesheet) {
   style.rule!(stylesheet[classes], classes)

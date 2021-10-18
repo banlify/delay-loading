@@ -109,6 +109,16 @@ export default {
 </template>
 ```
 
+### 自定义颜色
+
+使用 `data-loading-color` 和 `data-loading-background` 属性来设置背景颜色或者是图标颜色.
+
+```html
+<template>
+  <div v-delay-loading="loading" data-loading-color="#f00" data-loading-background="rgba(0,0,0,.68)"></div>
+</template>
+```
+
 
 ### 加载效果
 

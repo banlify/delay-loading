@@ -66,30 +66,30 @@ function setRender(element: DirectiveElement, { inline }: DirectiveModifiers) {
     element.dataset.loadingIcon || LOADING_SPINNER
   )
 
-  template = template.replace(LOADING_BACKGROUND_FLAG, loadingBackground || 'rgba(255,255,255,.78)')
-  template = template.replace(new RegExp(LOADING_COLOR_FLAG, 'gm'), loadingColor || 'var(--loading-color)')
+  template = template.replace(LOADING_COLOR_FLAG, loadingColor || DEFAULT_CONFIG.color)
+  template = template.replace(LOADING_BACKGROUND_FLAG, loadingBackground || DEFAULT_CONFIG.background)
 
   element.insertAdjacentHTML('afterbegin', template)
   element.instance.initialized = true
 }
 
-export function beforeMount(el, { modifiers }: DirectiveBinding) {
+export function beforeMount(el: DirectiveElement, { arg }: DirectiveBinding) {
   el.instance = {
     timer: null,
     stopped: false,
     initialized: false,
-    ignore: IGNORE_ELEMENT.includes(el.tagName),
-    delay: +modifiers.arg || DEFAULT_CONFIG.delay
+    delay: +arg! || DEFAULT_CONFIG.delay,
+    ignore: IGNORE_ELEMENT.includes(el.tagName)
   }
 }
 
-export function mounted(el, { value, modifiers }: DirectiveBinding) {
+export function mounted(el: DirectiveElement, { value, modifiers }: DirectiveBinding) {
   if (!value) return
 
   exec(init, el, modifiers)
 }
 
-export function beforeUpdate(el, { value, modifiers }: DirectiveBinding) {
+export function beforeUpdate(el: DirectiveElement, { value, modifiers }: DirectiveBinding) {
   // Cancel execution if the interval between state changes is less than the set value
   if (el.instance.timer) {
     clearTimer(el.instance)
@@ -104,6 +104,6 @@ export function beforeUpdate(el, { value, modifiers }: DirectiveBinding) {
   exec(el.instance.initialized ? setStatus : init, el, modifiers)
 }
 
-export function unmounted(el) {
+export function unmounted(el: DirectiveElement) {
   el.classList.remove(CONTAINER_CLASSES)
 }

@@ -1,6 +1,8 @@
 export const DEFAULT_CONFIG = {
   delay: 300,
   zIndex: 10,
+  color: '#00dc9e',
+  background: 'rgba(255,255,255, .68)'
 }
 
 export const IGNORE_ELEMENT = ['IMG', 'LINK', 'SCRIPT', 'IFRAME', 'PATH', 'HEAD', 'HTML', 'META', 'BASE', 'SVG']

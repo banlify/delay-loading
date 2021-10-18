@@ -109,6 +109,16 @@ Use `.inline` to set inline loading.
 </template>
 ```
 
+### Custom color
+
+Use `data-loading-color` and `data-loading-background`.
+
+```html
+<template>
+  <div v-delay-loading="loading" data-loading-color="#f00" data-loading-background="rgba(0,0,0,.68)"></div>
+</template>
+```
+
 ### Custom loading
 
 You can customize the loading effect by setting the `data-loading-icon` property.
