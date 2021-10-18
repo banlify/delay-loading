@@ -16,3 +16,8 @@ addonRule(nano)
 // addonDRule(nano)
 
 export var style: NanoRenderer = nano
+
+export const clearTimer = (instance) => {
+  clearTimeout(instance.timer)
+  instance.timer = null
+}

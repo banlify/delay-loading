@@ -22,6 +22,6 @@ export const RENDER_LOADING_TEXT = (text: string) => `<p class="${prefix('text')
 
 export const INLINE_TEMPLATE = `<div class="${prefix('scope')}">${LOADING_ICON_FLAG}</div>`
 
-export const LOADING_TEMPLATE = `<div class="${prefix('cover')}"><div class="${prefix('spinner')}">${LOADING_ICON_FLAG}${LOADING_TEXT_FLAG}</div></div>`
+export const NORMAL_TEMPLATE = `<div class="${prefix('cover')}"><div class="${prefix('spinner')}">${LOADING_ICON_FLAG}${LOADING_TEXT_FLAG}</div></div>`
 
 export const LOADING_SPINNER = `<svg viewBox="25 25 50 50" class="${prefix('circular')}"><circle cx="50" cy="50" r="20" fill="none" class="${prefix('path')}"></circle></svg>`

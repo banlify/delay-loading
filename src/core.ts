@@ -1,9 +1,9 @@
 import type { DirectiveBinding, DirectiveModifiers, DirectiveElement } from './types'
+import { clearTimer } from './utils'
 
 import {
   DEFAULT_CONFIG,
   IGNORE_ELEMENT,
-  DIRECTIVE_NAME,
 
   INLINE_CLASSES,
   OVERFLOW_CLASSES,
@@ -15,11 +15,27 @@ import {
 
   LOADING_SPINNER,
   INLINE_TEMPLATE,
-  LOADING_TEMPLATE,
+  NORMAL_TEMPLATE,
   RENDER_LOADING_TEXT,
 } from './constraint'
 
-const setStatus = (element: HTMLElement, { fullscreen, inline }: DirectiveModifiers) => {
+function exec(
+  program: Function,
+  element: DirectiveElement,
+  modifiers: DirectiveModifiers
+) {
+  element.instance.timer = window.setTimeout(() => {
+    program(element, modifiers)
+    clearTimer(element.instance)
+  }, element.instance.delay)
+}
+
+function init(element: DirectiveElement, modifiers: DirectiveModifiers) {
+  setRender(element, modifiers)
+  setStatus(element, modifiers)
+}
+
+function setStatus(element: DirectiveElement, { fullscreen, inline }: DirectiveModifiers) {
   const classes = element.classList
 
   classes.toggle(CONTAINER_CLASSES)
@@ -32,17 +48,15 @@ const setStatus = (element: HTMLElement, { fullscreen, inline }: DirectiveModifi
   }
 }
 
-const setRender = (element: HTMLElement, { inline }: DirectiveModifiers) => {
+function setRender(element: DirectiveElement, { inline }: DirectiveModifiers) {
   let template: string
-  const LOADING_TEXT = element.dataset.loadingText
-  const LOADING_ICON = element.dataset.loadingIcon || LOADING_SPINNER
 
   if (inline) {
     template = INLINE_TEMPLATE
   } else {
-    template = LOADING_TEMPLATE
+    const LOADING_TEXT = element.dataset.loadingText
+    template = NORMAL_TEMPLATE
 
-    // If loading text not empty create loading text.
     if (LOADING_TEXT && LOADING_TEXT.trim()) {
       template = template.replace(
         LOADING_TEXT_FLAG,
@@ -51,52 +65,44 @@ const setRender = (element: HTMLElement, { inline }: DirectiveModifiers) => {
     }
   }
 
-  // Sets the loading animation as the target effect.
   template = template.replace(
     LOADING_ICON_FLAG,
-    LOADING_ICON
+    element.dataset.loadingIcon || LOADING_SPINNER
   )
 
   element.insertAdjacentHTML('afterbegin', template)
+  element.instance.initialized = true
 }
 
-const insertAdjacentHTML = (
-  element: DirectiveElement,
-  { arg, modifiers }: DirectiveBinding
-) => {
-  if (element.instance && element.instance.ignore) {
-    console.warn(`[${DIRECTIVE_NAME}]: Directive cannot be applied to the current element. current element: <${element.tagName.toLowerCase()}>`)
-    return
-  }
-
-  const delay = +arg !== 0 ? +arg : DEFAULT_CONFIG.delay
-  setTimeout(() => {
-    setStatus(element, modifiers)
-    setRender(element, modifiers)
-    element.instance.initialized = true
-  }, delay)
-}
-
-export function beforeMount(el) {
+export function beforeMount(el, { modifiers }: DirectiveBinding) {
   el.instance = {
+    timer: null,
+    stopped: false,
     initialized: false,
-    ignore: IGNORE_ELEMENT.includes(el.tagName)
+    ignore: IGNORE_ELEMENT.includes(el.tagName),
+    delay: +modifiers.arg || DEFAULT_CONFIG.delay
   }
 }
 
-export function mounted(el, binding) {
-  if (!!binding.value) {
-    insertAdjacentHTML(el, binding)
-  }
+export function mounted(el, { value, modifiers }: DirectiveBinding) {
+  if (!value) return
+
+  exec(init, el, modifiers)
 }
 
-export function beforeUpdate(el, binding) {
-  if (!el.instance.initialized) {
-    insertAdjacentHTML(el, binding)
+export function beforeUpdate(el, { value, modifiers }: DirectiveBinding) {
+  // Cancel execution if the interval between state changes is less than the set value
+  if (el.instance.timer) {
+    clearTimer(el.instance)
     return
   }
 
-  setStatus(el, binding.modifiers)
+  if (!value) {
+    setStatus(el, modifiers)
+    return
+  }
+
+  exec(el.instance.initialized ? setStatus : init, el, modifiers)
 }
 
 export function unmounted(el) {

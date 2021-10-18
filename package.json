@@ -5,8 +5,8 @@
   "main": "dist/index.min.js",
   "type": "module",
   "scripts": {
-    "uglify": "uglifyjs -c -m --mangle-props -o dist/index.min.js -- dist/index.js",
-    "build": "rimraf dist && tsup index.ts --format esm && npm run uglify"
+    "build": "rimraf dist && tsup index.ts --format esm",
+    "postbuild": "uglifyjs -c -m --mangle-props -o dist/index.min.js -- dist/index.js"
   },
   "repository": {
     "type": "git",
