@@ -12,6 +12,8 @@ import {
 
   LOADING_ICON_FLAG,
   LOADING_TEXT_FLAG,
+  LOADING_COLOR_FLAG,
+  LOADING_BACKGROUND_FLAG,
 
   LOADING_SPINNER,
   INLINE_TEMPLATE,
@@ -49,26 +51,23 @@ function setStatus(element: DirectiveElement, { fullscreen, inline }: DirectiveM
 }
 
 function setRender(element: DirectiveElement, { inline }: DirectiveModifiers) {
-  let template: string
+  const { loadingText, loadingColor, loadingBackground } = element.dataset
+  let template: string = inline ? INLINE_TEMPLATE : NORMAL_TEMPLATE
 
-  if (inline) {
-    template = INLINE_TEMPLATE
-  } else {
-    const LOADING_TEXT = element.dataset.loadingText
-    template = NORMAL_TEMPLATE
-
-    if (LOADING_TEXT && LOADING_TEXT.trim()) {
-      template = template.replace(
-        LOADING_TEXT_FLAG,
-        RENDER_LOADING_TEXT(LOADING_TEXT)
-      )
-    }
+  if (!inline && loadingText && loadingText.trim()) {
+    template = template.replace(
+      LOADING_TEXT_FLAG,
+      RENDER_LOADING_TEXT(loadingText)
+    )
   }
 
   template = template.replace(
     LOADING_ICON_FLAG,
     element.dataset.loadingIcon || LOADING_SPINNER
   )
+
+  template = template.replace(LOADING_BACKGROUND_FLAG, loadingBackground || 'rgba(255,255,255,.78)')
+  template = template.replace(new RegExp(LOADING_COLOR_FLAG, 'gm'), loadingColor || 'var(--loading-color)')
 
   element.insertAdjacentHTML('afterbegin', template)
   element.instance.initialized = true

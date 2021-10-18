@@ -11,7 +11,7 @@
 - [x] Support vue2
 - [x] Support button internal loading
 - [x] Supports custom loading effects(HTML string)
-- [ ] Support for setting colors
+- [x] Support for setting colors
 - [ ] Supports setting global configuration(Global registration)
 
 ## Install

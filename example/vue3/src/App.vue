@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" v-delay-loading="loading">
+  <div class="wrapper" v-delay-loading="loading" data-loading-color="#000" data-loading-background="#f00" data-loading-text="12312">
     <HelloWorld msg="You did it!" />
   </div>
 
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Loading from '../../../dist/index.min'
+import Loading from '../../../index'
 
 export default {
   directives: {

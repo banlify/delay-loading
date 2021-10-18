@@ -55,7 +55,7 @@ const stylesheet: Record<string, Record<string, any>> = {
     width: '100%',
     height: '100%',
     animation: `${coverFade} 1s ease`,
-    backgroundColor: 'rgba(255, 255, 255, .8)',
+    // backgroundColor: 'rgba(255, 255, 255, .8)',
     zIndex: DEFAULT_CONFIG.zIndex
   },
   spinner: {
@@ -70,7 +70,7 @@ const stylesheet: Record<string, Record<string, any>> = {
   text: {
     margin: '3px 0',
     fontSize: 'inherit',
-    color: 'var(--loading-color)'
+    // color: 'var(--loading-color)'
   },
   circular: {
     margin: '0 auto',
@@ -83,6 +83,7 @@ const stylesheet: Record<string, Record<string, any>> = {
     strokeDasharray: '90, 150',
     strokeDashoffset: 0,
     strokeWidth: 3,
+    // stroke: 'var(--loading-color)',
     strokeLinecap: 'round'
   },
   scope: {
