@@ -3,8 +3,6 @@
     <HelloWorld msg="You did it!" />
   </div>
 
-  <img src="./assets/logo.svg" v-delay-loading="loading"  alt="">
-
   <button style="margin: 30px" v-delay-loading.inline="loading">按钮内加载</button>
 
   <button @click="toggle">切换</button>

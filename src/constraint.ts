@@ -10,17 +10,18 @@ export const CLASSES_PREFIX = 'delay-loading'
 
 export const prefix = (name: string) => `${CLASSES_PREFIX}-${name}`
 
-export const FULLSCREEN_DISPLAY = prefix('fixed')
-export const CONTAINER_OVERFLOW = prefix('overflow')
+export const INLINE_CLASSES = prefix('inline')
+export const FULLSCREEN_CLASSES = prefix('fixed')
+export const OVERFLOW_CLASSES = prefix('overflow')
 export const CONTAINER_CLASSES = prefix('container')
 
 export const LOADING_ICON_FLAG = '<!-- DELAY_LOADING_ICON -->'
 export const LOADING_TEXT_FLAG = '<!-- DELAY_LOADING_TEXT -->'
 
-export const INLINE_LOADING_ICON = `<i class="${prefix('inline')}"></i>`
-
 export const RENDER_LOADING_TEXT = (text: string) => `<p class="${prefix('text')}">${text}</p>`
+
+export const INLINE_TEMPLATE = `<div class="${prefix('scope')}">${LOADING_ICON_FLAG}</div>`
 
 export const LOADING_TEMPLATE = `<div class="${prefix('cover')}"><div class="${prefix('spinner')}">${LOADING_ICON_FLAG}${LOADING_TEXT_FLAG}</div></div>`
 
-export const LOADING_ICON_SECTION = `<svg viewBox="25 25 50 50" class="${prefix('circular')}"><circle cx="50" cy="50" r="20" fill="none" class="${prefix('path')}"></circle></svg>`
+export const LOADING_SPINNER = `<svg viewBox="25 25 50 50" class="${prefix('circular')}"><circle cx="50" cy="50" r="20" fill="none" class="${prefix('path')}"></circle></svg>`

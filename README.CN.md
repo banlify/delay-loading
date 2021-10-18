@@ -9,8 +9,8 @@
 - [x] 支持加载提示文本
 - [x] 支持设置全屏展示
 - [x] 支持Vue2
+- [x] 支持按钮内部加载
 - [ ] 支持设置背景或是颜色
-- [ ] 支持按钮内部加载
 - [ ] 支持自定义传入加载动效
 
 ## 安装
@@ -69,13 +69,41 @@ export default {
 </script>
 ```
 
+### 延迟显示时间
+设置一个时间来指定延迟多久展示，单位是毫秒，默认为：`300`.
+
+```html
+<template>
+  <div v-delay-loading:300="loading"></div>
+</template>
+```
+
 ### 加载文本
 
 你可以在设置了指令的元素上添加 `data-loading-text` 属性来展示你所想要展示的加载提示文本.
+
 ```html
 <template>
-  <div v-delay-loading="loading" data-loading-text="数据加载中...">
+  <div v-delay-loading="loading" data-loading-text="数据加载中..."></div>
+</template>
+```
 
-  </div>
+### Fullscreen
+
+使用 `.fullscreen` 参数来设置全屏加载效果
+
+```html
+<template>
+  <div v-delay-loading.fullscreen="loading"></div>
+</template>
+```
+
+### Inline
+
+使用 `.inline` 参数来设置行内加载效果
+
+```html
+<template>
+  <button v-delay-loading.inline="loading"></button>
 </template>
 ```

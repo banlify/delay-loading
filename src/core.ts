@@ -1,73 +1,80 @@
-interface DirectiveBinding {
-  arg?: string;
-  value: boolean;
-  oldValue: boolean | null;
-  modifiers: Record<string, boolean>;
-}
+import type { DirectiveBinding, DirectiveModifiers, DirectiveElement } from './types'
 
 import {
   DEFAULT_CONFIG,
   IGNORE_ELEMENT,
   DIRECTIVE_NAME,
 
+  INLINE_CLASSES,
+  OVERFLOW_CLASSES,
   CONTAINER_CLASSES,
-  CONTAINER_OVERFLOW,
-  FULLSCREEN_DISPLAY,
+  FULLSCREEN_CLASSES,
 
   LOADING_ICON_FLAG,
   LOADING_TEXT_FLAG,
 
+  LOADING_SPINNER,
+  INLINE_TEMPLATE,
   LOADING_TEMPLATE,
   RENDER_LOADING_TEXT,
-  INLINE_LOADING_ICON,
-  LOADING_ICON_SECTION,
 } from './constraint'
 
-const setStatus = (element: HTMLElement, { fullscreen, inline }: Record<string, boolean>) => {
+const setStatus = (element: HTMLElement, { fullscreen, inline }: DirectiveModifiers) => {
   const classes = element.classList
 
   classes.toggle(CONTAINER_CLASSES)
-  classes.toggle(CONTAINER_OVERFLOW)
+  classes.toggle(OVERFLOW_CLASSES)
 
   if (fullscreen) {
-    classes.add(FULLSCREEN_DISPLAY)
+    classes.add(FULLSCREEN_CLASSES)
   } else if (inline) {
-    // classes.add()
+    classes.add(INLINE_CLASSES)
   }
 }
 
-const renderTemplate = (element: HTMLElement, modifiers: Record<string, boolean>) => {
-  setStatus(element, modifiers)
-
-  let template = LOADING_TEMPLATE
+const setRender = (element: HTMLElement, { inline }: DirectiveModifiers) => {
+  let template: string
   const LOADING_TEXT = element.dataset.loadingText
+  const LOADING_ICON = element.dataset.loadingIcon || LOADING_SPINNER
 
-  // If loading text not empty create loading text.
-  if (LOADING_TEXT && LOADING_TEXT.trim()) {
-    template = template.replace(
-      LOADING_TEXT_FLAG,
-      RENDER_LOADING_TEXT(LOADING_TEXT)
-    )
+  if (inline) {
+    template = INLINE_TEMPLATE
+  } else {
+    template = LOADING_TEMPLATE
+
+    // If loading text not empty create loading text.
+    if (LOADING_TEXT && LOADING_TEXT.trim()) {
+      template = template.replace(
+        LOADING_TEXT_FLAG,
+        RENDER_LOADING_TEXT(LOADING_TEXT)
+      )
+    }
   }
 
   // Sets the loading animation as the target effect.
   template = template.replace(
     LOADING_ICON_FLAG,
-    modifiers.inline ? INLINE_LOADING_ICON : LOADING_ICON_SECTION
+    LOADING_ICON
   )
 
   element.insertAdjacentHTML('afterbegin', template)
 }
 
-const insertAdjacentHTML = (element: HTMLElement, { arg, modifiers }: DirectiveBinding) => {
-  // @ts-ignore
+const insertAdjacentHTML = (
+  element: DirectiveElement,
+  { arg, modifiers }: DirectiveBinding
+) => {
   if (element.instance && element.instance.ignore) {
     console.warn(`[${DIRECTIVE_NAME}]: Directive cannot be applied to the current element. current element: <${element.tagName.toLowerCase()}>`)
     return
   }
 
   const delay = +arg !== 0 ? +arg : DEFAULT_CONFIG.delay
-  setTimeout(renderTemplate, delay, element, modifiers)
+  setTimeout(() => {
+    setStatus(element, modifiers)
+    setRender(element, modifiers)
+    element.instance.initialized = true
+  }, delay)
 }
 
 export function beforeMount(el) {
@@ -80,7 +87,6 @@ export function beforeMount(el) {
 export function mounted(el, binding) {
   if (!!binding.value) {
     insertAdjacentHTML(el, binding)
-    el.instance.initialized = true
   }
 }
 

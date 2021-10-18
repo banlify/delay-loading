@@ -9,8 +9,8 @@
 - [x] Support setting loading prompt text
 - [x] Supports full-screen display loading
 - [x] Support vue2
+- [x] Support button internal loading
 - [ ] Support for setting colors
-- [ ] Support button internal loading
 - [ ] Supports custom loading effects
 
 ## Install
@@ -69,14 +69,41 @@ export default {
 </script>
 ```
 
+### Loading delay
+Set a time to specify how long to delay the presentation. The unit is ms. The default value is `300` ms.
+
+```html
+<template>
+  <div v-delay-loading:300="loading" data-loading-text="loading data..."></div>
+</template>
+```
+
 ### Loading text
 
 Set the `data-loading-text` property to display the custom loading text.
 
 ```html
 <template>
-  <div v-delay-loading="loading" data-loading-text="数据加载中...">
+  <div v-delay-loading="loading" data-loading-text="loading data..."></div>
+</template>
+```
 
-  </div>
+### Fullscreen
+
+Use `.fullscreen` to set up full-screen loading.
+
+```html
+<template>
+  <div v-delay-loading.fullscreen="loading"></div>
+</template>
+```
+
+### Inline
+
+Use `.inline` to set inline loading.
+
+```html
+<template>
+  <button v-delay-loading.inline="loading"></button>
 </template>
 ```

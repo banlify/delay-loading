@@ -28,12 +28,13 @@ const loadingDash = style.keyframes!({
 
 const delayLoadingInline = style.keyframes!({
   '0%': {
-    transform: 'scale(0)',
-    opacity: 1
+    width: 0,
+    height: 0,
+    margin: 0
   },
   '100%': {
-    transform: 'scale(1)',
-    opacity: 0
+    width: '1em',
+    height: '1em'
   }
 })
 
@@ -85,14 +86,14 @@ const stylesheet: Record<string, Record<string, any>> = {
     stroke: 'var(--loading-color)',
     strokeLinecap: 'round'
   },
-  inline: {
-    display: 'inline-block',
-    position: 'relative',
-    width: 0,
-    height: 0,
+  scope: {
+    display: 'none',
+    width: '1.1em',
+    height: '1.1em',
+    marginRight: '2px',
     overflow: 'hidden',
     verticalAlign: 'middle',
-    transition: 'width .5s, height .5s',
+    animation: `${delayLoadingInline} .3s ease-in-out`
   }
 }
 
@@ -108,35 +109,15 @@ style.put(`.${prefix('fixed')} .${prefix('cover')}`, {
 })
 
 // display cover
-style.put(`.${prefix('container')} .${prefix('cover')}`, {
-  display: 'block'
+style.put(`
+  .${prefix('container')} .${prefix('cover')},
+  .${prefix('container')} .${prefix('scope')}`, {
+  display: 'inline-block'
 })
 
-// inline loading icon
-style.put(`.${prefix('container')} .${prefix('inline')}`, {
-  width: '1em',
-  height: '1em'
+style.put(`.${prefix('inline')} .${prefix('circular')}`, {
+  width: '90%',
+  height: '90%'
 })
-
-// inline loading icon board
-style.put(`.delay-loading-inline::after, .delay-loading-inline::before`, {
-  content: '',
-  position: 'absolute',
-  left: 0,
-  top: 0,
-  width: '100%',
-  height: '100%',
-  borderRadius: '50%',
-  border: '2px solid currentColor',
-  animation: `${delayLoadingInline} 2s linear infinite`,
-  color: 'inherit'
-})
-
-// initial status
-style.put(`.delay-loading-inline::after, .delay-loading-inline::before`, {
-  animationDelay: '1s',
-  opacity: 0
-})
-
 
 export default style
