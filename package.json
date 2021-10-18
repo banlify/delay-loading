@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "rimraf dist && tsup index.ts --format esm",
-    "postbuild": "uglifyjs -c -m --mangle-props -o dist/index.min.js -- dist/index.js"
+    "postbuild": "uglifyjs -c  -m --mangle-props regex=/style\\./ -o dist/index.min.js -- dist/index.js"
   },
   "repository": {
     "type": "git",

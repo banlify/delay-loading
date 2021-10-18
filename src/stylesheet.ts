@@ -83,7 +83,6 @@ const stylesheet: Record<string, Record<string, any>> = {
     strokeDasharray: '90, 150',
     strokeDashoffset: 0,
     strokeWidth: 3,
-    stroke: 'var(--loading-color)',
     strokeLinecap: 'round'
   },
   scope: {
