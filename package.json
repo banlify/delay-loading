@@ -1,6 +1,6 @@
 {
   "name": "delay-loading",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Vue2.x and Vue3.x delay loading directive.",
   "main": "dist/index.min.js",
   "type": "module",
