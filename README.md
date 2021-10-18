@@ -12,7 +12,7 @@
 - [x] Support button internal loading
 - [x] Supports custom loading effects(HTML string)
 - [x] Support for setting colors
-- [ ] Supports setting global configuration(Global registration)
+- [x] Supports setting global configuration(Global registration)
 
 ## Install
 
@@ -27,7 +27,7 @@ Vue 2
 import Vue from 'vue';
 import { DelayLoading } from 'delay-loading'
 
-Vue.use(DelayLoading)
+Vue.use(DelayLoading, options)
 ```
 
 Vue3
@@ -38,8 +38,14 @@ import DelayLoading from 'delay-loading'
 
 const app = createApp(App)
 
-app.use(DelayLoading)
+app.use(DelayLoading, options)
 ```
+
+**options:**
+- delay: Latency required for subsequent execution.
+- color: Color of ICONS and text.
+- background: Load the background of the mask (can be an image).
+- zIndex: Popover mask layer by layer.
 
 ### Scope directive
 ```js

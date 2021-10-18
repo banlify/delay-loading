@@ -12,7 +12,7 @@
 - [x] 支持按钮内部加载
 - [x] 支持自定义传入加载动效（HTML元素字符串，可以实现自定义css动画）
 - [x] 支持设置背景或是颜色
-- [ ] 支持设置全局配置（全局注册时）
+- [x] 支持设置全局配置（全局注册时）
 
 ## 安装
 ```sh
@@ -25,7 +25,7 @@ Vue 2
 import Vue from 'vue';
 import { DelayLoading } from 'delay-loading'
 
-Vue.use(DelayLoading)
+Vue.use(DelayLoading, options)
 ```
 
 Vue3
@@ -36,8 +36,14 @@ import DelayLoading from 'delay-loading'
 
 const app = createApp(App)
 
-app.use(DelayLoading)
+app.use(DelayLoading, options)
 ```
+
+**options:**
+- delay: 后续程序执行时的默认延迟.
+- color: 加载图标和提示文本的颜色.
+- background: 蒙层的背景 (可以是图片).
+- zIndex: 蒙层背景的层级.
 
 ### 局部指令
 

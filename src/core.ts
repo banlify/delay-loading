@@ -66,8 +66,8 @@ function setRender(element: DirectiveElement, { inline }: DirectiveModifiers) {
     element.dataset.loadingIcon || LOADING_SPINNER
   )
 
-  template = template.replace(LOADING_COLOR_FLAG, loadingColor || DEFAULT_CONFIG.color)
   template = template.replace(LOADING_BACKGROUND_FLAG, loadingBackground || DEFAULT_CONFIG.background)
+  template = template.replace(new RegExp(LOADING_COLOR_FLAG, 'gm'), loadingColor || DEFAULT_CONFIG.color)
 
   element.insertAdjacentHTML('afterbegin', template)
   element.instance.initialized = true

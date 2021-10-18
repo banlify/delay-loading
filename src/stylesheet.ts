@@ -54,9 +54,7 @@ const stylesheet: Record<string, Record<string, any>> = {
     top: 0,
     width: '100%',
     height: '100%',
-    animation: `${coverFade} 1s ease`,
-    // backgroundColor: 'rgba(255, 255, 255, .8)',
-    zIndex: DEFAULT_CONFIG.zIndex
+    animation: `${coverFade} 1s ease`
   },
   spinner: {
     position: 'absolute',
