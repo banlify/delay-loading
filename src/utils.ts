@@ -1,4 +1,5 @@
 import { CLASSES_PREFIX } from './constraint'
+import { DirectiveInstance } from './types'
 
 import { create } from 'nano-css'
 import { addon as addonRule } from 'nano-css/addon/rule'
@@ -12,12 +13,10 @@ const nano = create({ pfx: CLASSES_PREFIX + '-' })
 
 keyframe(nano)
 addonRule(nano)
-// addonCache(nano)
-// addonDRule(nano)
 
 export var style: NanoRenderer = nano
 
-export const clearTimer = (instance) => {
+export const clearTimer = (instance: DirectiveInstance) => {
   clearTimeout(instance.timer)
-  instance.timer = null
+  instance.timer = undefined
 }

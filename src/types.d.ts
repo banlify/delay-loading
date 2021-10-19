@@ -1,8 +1,7 @@
 export interface DirectiveInstance {
   delay: number;
-  timer: null | number;
+  timer: number | undefined;
   ignore: boolean;
-  stopped: boolean;
   initialized: boolean;
 }
 

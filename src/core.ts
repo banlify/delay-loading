@@ -75,8 +75,7 @@ function setRender(element: DirectiveElement, { inline }: DirectiveModifiers) {
 
 export function beforeMount(el: DirectiveElement, { arg }: DirectiveBinding) {
   el.instance = {
-    timer: null,
-    stopped: false,
+    timer: undefined,
     initialized: false,
     delay: +arg! || DEFAULT_CONFIG.delay,
     ignore: IGNORE_ELEMENT.includes(el.tagName)
@@ -90,7 +89,6 @@ export function mounted(el: DirectiveElement, { value, modifiers }: DirectiveBin
 }
 
 export function beforeUpdate(el: DirectiveElement, { value, modifiers }: DirectiveBinding) {
-  // Cancel execution if the interval between state changes is less than the set value
   if (el.instance.timer) {
     clearTimer(el.instance)
     return

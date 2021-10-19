@@ -1,5 +1,5 @@
-import { prefix, DEFAULT_CONFIG } from './constraint'
 import { style } from './utils'
+import { prefix } from './constraint'
 
 const coverFade = style.keyframes!({
   '0%': { opacity: 0 },

@@ -17,8 +17,8 @@ export const FULLSCREEN_CLASSES = prefix('fixed')
 export const OVERFLOW_CLASSES = prefix('overflow')
 export const CONTAINER_CLASSES = prefix('container')
 
-export const LOADING_COLOR_FLAG = '{{DELAY_LOADING_COLOR}}'
-export const LOADING_BACKGROUND_FLAG = '{{DELAY_LOADING_BACKGROUND}}'
+export const LOADING_COLOR_FLAG = '{{ DELAY_LOADING_COLOR }}'
+export const LOADING_BACKGROUND_FLAG = '{{ DELAY_LOADING_BACKGROUND }}'
 export const LOADING_ICON_FLAG = '<!-- DELAY_LOADING_ICON -->'
 export const LOADING_TEXT_FLAG = '<!-- DELAY_LOADING_TEXT -->'
 
