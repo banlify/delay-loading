@@ -14,7 +14,7 @@ export const prefix = (name: string) => `${CLASSES_PREFIX}-${name}`
 
 export const INLINE_CLASSES = prefix('inline')
 export const FULLSCREEN_CLASSES = prefix('fixed')
-export const OVERFLOW_CLASSES = prefix('overflow')
+export const RELATIVE_CLASSES = prefix('relative')
 export const CONTAINER_CLASSES = prefix('container')
 
 export const LOADING_COLOR_FLAG = '{{DELAY_LOADING_COLOR}}'

@@ -20,7 +20,16 @@ export default {
 
   methods: {
     toggle(){
-      this.loading = !this.loading
+      // this.loading = !this.loading
+      this.loading = true
+
+      setTimeout(() => {
+        this.loading = true
+      }, 120)
+
+      setTimeout(() => {
+        this.loading = false
+      }, 200)
     }
   }
 }

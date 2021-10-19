@@ -1,5 +1,5 @@
 import { CLASSES_PREFIX } from './constraint'
-import { DirectiveInstance } from './types'
+import { DirectiveInstance, DirectiveElement } from './types'
 
 import { create } from 'nano-css'
 import { addon as addonRule } from 'nano-css/addon/rule'
@@ -20,3 +20,5 @@ export const clearTimer = (instance: DirectiveInstance) => {
   clearTimeout(instance.timer)
   instance.timer = undefined
 }
+
+export const getPosition = (element: DirectiveElement) => window.getComputedStyle(element)['position']

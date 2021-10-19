@@ -5,7 +5,7 @@
   "main": "dist/index.min.js",
   "type": "module",
   "scripts": {
-    "build": "rimraf dist && tsup index.ts --format esm",
+    "build": "tsup index.ts --format esm",
     "postbuild": "uglifyjs -c  -m --mangle-props regex=/style\\./ -o dist/index.min.js -- dist/index.js"
   },
   "repository": {
@@ -29,7 +29,6 @@
   },
   "homepage": "https://github.com/banlify/delay-loading#readme",
   "devDependencies": {
-    "rimraf": "^3.0.2",
     "typescript": "^4.4.4",
     "uglify-js": "^3.14.2"
   },

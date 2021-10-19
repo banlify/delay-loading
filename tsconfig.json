@@ -8,12 +8,15 @@
     ],
     "esModuleInterop": true,
     "strict": true,
+    "allowJs": true,
     "strictNullChecks": true,
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "skipLibCheck": true
   },
   "exclude": [
+    "dist/**",
+    "example/**",
     "**/dist",
     "**/node_modules"
   ]

@@ -39,12 +39,11 @@ const delayLoadingInline = style.keyframes!({
 })
 
 const stylesheet: Record<string, Record<string, any>> = {
-  overflow: {
-    overflow: 'hidden!important'
-  },
+  relative: { position: 'relative!important' },
   container: {
-    position: 'relative!important',
-    userSelect: 'none!important'
+    pointerEvents: 'none!important',
+    userSelect: 'none!important',
+    overflow: 'hidden!important'
   },
   cover: {
     display: 'none',
@@ -102,9 +101,7 @@ style.put(`.${prefix('fixed')} .${prefix('cover')}`, {
 })
 
 // display cover
-style.put(`
-  .${prefix('container')} .${prefix('cover')},
-  .${prefix('container')} .${prefix('scope')}`, {
+style.put(`.${prefix('container')} .${prefix('cover')},.${prefix('container')} .${prefix('scope')}`, {
   display: 'inline-block'
 })
 

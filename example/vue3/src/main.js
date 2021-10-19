@@ -7,9 +7,7 @@ const app = createApp(App)
 
 app.use(directive, {
   delay: 300,
-  zIndex: 100,
-  color: '#f00',
-  background: '#000'
+  zIndex: 100
 })
 
 app.mount('#app')
