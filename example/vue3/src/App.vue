@@ -1,11 +1,11 @@
 <template>
-  <div class="wrapper" v-delay-loading:300="loading" data-loading-color="#000" data-loading-background="#f00" data-loading-text="12312">
+  <div class="wrapper" v-delay-loading="loading" data-loading-color="#000" data-loading-background="#f00" data-loading-text="12312">
     <HelloWorld msg="You did it!" />
+  <button @click="toggle">切换</button>
   </div>
 
   <button style="margin: 30px" v-delay-loading.inline="loading">按钮内加载</button>
 
-  <button @click="toggle">切换</button>
 </template>
 
 
@@ -17,12 +17,12 @@ const loading = ref(false)
 
 
 const toggle = () => {
-  loading.value = !loading.value
-  // loading.value = true
+  // loading.value = !loading.value
+  loading.value = true
 
-  // setTimeout(() => {
-  //   loading.value = false
-  // }, 50)
+  setTimeout(() => {
+    loading.value = false
+  }, 500)
 }
 
 // setTimeout(toggle, 300)

@@ -44,7 +44,6 @@ const stylesheet: Record<string, Record<string, any>> = {
   },
   container: {
     position: 'relative!important',
-    pointerEvents: 'none!important',
     userSelect: 'none!important'
   },
   cover: {
