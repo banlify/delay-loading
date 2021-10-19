@@ -2,7 +2,7 @@ export const DEFAULT_CONFIG = {
   delay: 300,
   zIndex: 10,
   color: '#00dc9e',
-  background: 'rgba(255,255,255, .68)'
+  background: 'rgba(255,255,255,.68)'
 }
 
 export const IGNORE_ELEMENT = ['IMG', 'LINK', 'SCRIPT', 'IFRAME', 'PATH', 'HEAD', 'HTML', 'META', 'BASE', 'SVG']
@@ -17,10 +17,10 @@ export const FULLSCREEN_CLASSES = prefix('fixed')
 export const OVERFLOW_CLASSES = prefix('overflow')
 export const CONTAINER_CLASSES = prefix('container')
 
-export const LOADING_COLOR_FLAG = '{{ DELAY_LOADING_COLOR }}'
-export const LOADING_BACKGROUND_FLAG = '{{ DELAY_LOADING_BACKGROUND }}'
-export const LOADING_ICON_FLAG = '<!-- DELAY_LOADING_ICON -->'
-export const LOADING_TEXT_FLAG = '<!-- DELAY_LOADING_TEXT -->'
+export const LOADING_COLOR_FLAG = '{{DELAY_LOADING_COLOR}}'
+export const LOADING_BACKGROUND_FLAG = '{{DELAY_LOADING_BACKGROUND}}'
+export const LOADING_ICON_FLAG = '<!--DELAY_LOADING_ICON-->'
+export const LOADING_TEXT_FLAG = '<!--DELAY_LOADING_TEXT-->'
 
 export const RENDER_LOADING_TEXT = (text: string) => `<p class="${prefix('text')}" style="color:${LOADING_COLOR_FLAG}">${text}</p>`
 
